@@ -12,10 +12,10 @@ mapService.getLocs()
 window.onload = () => {
     initMap()
         .then(() => {
-            addMarker({
-                lat: 32.0749831,
-                lng: 34.9120554
-            });
+            // addMarker({
+            //     lat: 32.0749831,
+            //     lng: 34.9120554
+            // });
             addEventsListeners()
         })
         .catch(() => console.log('INIT MAP ERROR'));
@@ -103,13 +103,16 @@ function onGetCurrPosition() {
 
 function onClickMap() {
     gMap.addListener("click", (mapsMouseEvent) => {
-        console.log('mapsMouseEvent:', mapsMouseEvent)
+        // console.log('mapsMouseEvent:', mapsMouseEvent)
         var lat = mapsMouseEvent.latLng.lat()
         // console.log('lat:', lat)
         var lng = mapsMouseEvent.latLng.lng()
         // console.log('lng:', lng)
-        panTo(lat,lng)
-        createInfoWindow({lat,lng})
+        panTo(lat, lng)
+        createInfoWindow({
+            lat,
+            lng
+        })
         mapService.createLocation(null, lat, lng, null, null)
     });
 }
@@ -119,8 +122,10 @@ function createInfoWindow(pos) {
         content: 'contentString',
     });
     const marker = addMarker(pos)
+    infowindow.open(gMap, marker);
 
     marker.addListener("click", () => {
-        infowindow.open(gMap, marker);
+        infowindow.close(gMap, marker);
+
     });
 }
