@@ -10,13 +10,16 @@ export const mapService = {
     deleteLoc,
     // getLocationUrl,
     searchLocs,
-    gCurrLocation
+    gCurrLocation,
+    getLocWeather
 }
 
 var gCurrLocation
 
 const KEY = 'locations';
 const API_KEY = 'AIzaSyBVQipjJ0ddfwLp8ooqI_wUJEjIogAff5g';
+
+const W_KEY = 'b1b68f237aa5fc8d564c0170e10be530';
 
 // var locs = [{
 //     lat: 11.22,
@@ -88,5 +91,23 @@ function searchLocs(searchedStr) {
             loc = res.data.results[0]
             utilService.saveToStorage(searchedStr, loc);
             return {name: loc.formatted_address, location: loc.geometry.location}
+        });
+}
+
+
+
+
+function getLocWeather(loc) {
+    // let loc = utilService.loadFromStorage(searchedStr);
+    // if (loc) return Promise.resolve(loc);
+    console.log(loc);
+
+    return axios.get(`api.openweathermap.org/data/2.5/weather?lat=${loc.lat}&lon=${loc.lng}&appid=${W_KEY}`)
+        .then(res => {
+
+            console.log(res);
+            // loc = res.data.results[0]
+            // utilService.saveToStorage(searchedStr, loc);
+            return res;
         });
 }

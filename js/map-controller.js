@@ -14,14 +14,14 @@ window.onload = () => {
     initMap()
         .then(() => {
             addEventsListeners()
+            renderLocs();   
         })
-        .catch(() => console.log('INIT MAP ERROR'));
-        renderLocs();
+        // .catch(() => console.log('INIT MAP ERROR'));
 }
 
 window.onPanLoc = onPanLoc;
 window.onDeleteLoc = onDeleteLoc;
-window.onSearchLoc = onSearchLoc;
+// window.onSearchLoc = onSearchLoc;
 
 
 function initMap(lat = 32.0749831, lng = 34.9120554) {
@@ -168,12 +168,18 @@ function onSearchLoc(ev) {
     ev.preventDefault();
     const locName = document.querySelector('.search-loc').value;
     mapService.searchLocs(locName)
-    .then (loc => panTo(loc.location));
+    .then (loc => {
+        let searched = loc;
+        console.log(searched);
+        
+        panTo(loc.location);
+        mapService.getLocWeather(searched.location)
+        .then (res => console.log(res));
+    });
 
 
 }
 
 function addSearchListener() {
     document.querySelector('.search-form').addEventListener('submit', onSearchLoc);
-    console.log("TCL: onSearchLoc -> locName", locName);
 }
