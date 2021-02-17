@@ -8,6 +8,7 @@ export const mapService = {
     saveLocsToStorage,
     findLocById,
     deleteLoc,
+    getLocationUrl,
     gCurrLocation
 }
 
@@ -65,4 +66,8 @@ function deleteLoc(id) {
     if (!locs) return;
     locs.splice(locs.findIndex(loc => loc.id === id), 1)
     saveLocsToStorage(locs)
+}
+
+function getLocationUrl(){
+    // axios.get (`http://127.0.0.1:5502/index.html?lat=${} &lng=7.63`)
 }
