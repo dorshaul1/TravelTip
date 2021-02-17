@@ -14,18 +14,14 @@ export const mapService = {
     getLocWeather
 }
 
-var gCurrLocation
+export var gCurrLocation 
+
+// export var gCurrLocation
 
 const KEY = 'locations';
 const API_KEY = 'AIzaSyBVQipjJ0ddfwLp8ooqI_wUJEjIogAff5g';
 
 const W_KEY = 'b1b68f237aa5fc8d564c0170e10be530';
-
-// var locs = [{
-//     lat: 11.22,
-//     lng: 22.11
-// }]
-
 
 function getSearchedLocs() {
     return new Promise((resolve, reject) => {
@@ -72,11 +68,6 @@ function deleteLoc(id) {
     locs.splice(locs.findIndex(loc => loc.id === id), 1)
     saveLocsToStorage(locs)
 }
-
-// function getLocationUrl(){
-//     console.log('hi')
-//     return axios.get (`http://127.0.0.1:5502/index.html?lat=${gCurrLocation.lat} &lng=${gCurrLocation.lng} `)
-// }
 
 function searchLocs(searchedStr) {
     const searchedLoc = searchedStr.split(' ').join('+');
