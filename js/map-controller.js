@@ -16,18 +16,18 @@ window.onload = () => {
                 lat: 32.0749831,
                 lng: 34.9120554
             });
+            addEventsListeners()
         })
         .catch(() => console.log('INIT MAP ERROR'));
 
-    getPosition()
-        .then(pos => {
-            console.log('User position is:', pos.coords);
-            // console.log('pos.coords:', pos.coords)
-        })
-        .catch(err => {
-            console.log('err!!!', err);
-        })
-    addEventsListeners()
+    // getPosition()
+    //     .then(pos => {
+    //         console.log('User position is:', pos.coords);
+    //         // console.log('pos.coords:', pos.coords)
+    //     })
+    //     .catch(err => {
+    //         console.log('err!!!', err);
+    //     })
 }
 
 function initMap(lat = 32.0749831, lng = 34.9120554) {
@@ -102,24 +102,12 @@ function onGetCurrPosition() {
 }
 
 function onClickMap() {
-        // let infoWindow = new google.maps.InfoWindow({
-        //     content: "Click the map to get Lat/Lng!",
-        //     position: myLatlng,
-        // });
-        // infoWindow.open(map);
-    // Configure the click listener.
-    console.log('gMap:', gMap)
     gMap.addListener("click", (mapsMouseEvent) => {
-        // Close the current InfoWindow.
-            // infoWindow.close();
-        // Create a new InfoWindow.
-            //infoWindow = new google.maps.InfoWindow({
-            position: 
-            console.log(mapsMouseEvent.latLng)
-        });
-    //     infoWindow.setContent(
-    //         JSON.stringify(mapsMouseEvent.latLng.toJSON(), null, 2)
-    //     );
-    //     infoWindow.open(map);
-    // });
+        console.log('mapsMouseEvent:', mapsMouseEvent)
+        var lat = mapsMouseEvent.latLng.lat()
+        console.log('lat:', lat)
+        var lng = mapsMouseEvent.latLng.lng()
+        console.log('lng:', lng)
+        panTo(lat,lng)
+    });
 }
