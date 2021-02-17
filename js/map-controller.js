@@ -21,7 +21,6 @@ window.onload = () => {
         })
         .catch(() => console.log('INIT MAP ERROR'));
 
-<<<<<<< HEAD
     getPosition()
         .then(pos => {
             console.log('User position is:', pos.coords);
@@ -32,16 +31,6 @@ window.onload = () => {
         });
         console.log('map', gMap);
     addEventsListeners();
-=======
-    // getPosition()
-    //     .then(pos => {
-    //         console.log('User position is:', pos.coords);
-    //         // console.log('pos.coords:', pos.coords)
-    //     })
-    //     .catch(err => {
-    //         console.log('err!!!', err);
-    //     })
->>>>>>> 8bfcde353635413cf9b2e582e7e08ae5edd3109d
 }
 
 function initMap(lat = 32.0749831, lng = 34.9120554) {
