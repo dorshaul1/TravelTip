@@ -26,8 +26,9 @@ window.onload = () => {
         })
         .catch(err => {
             console.log('err!!!', err);
-        })
-    addEventsListeners()
+        });
+        console.log('map', gMap);
+    addEventsListeners();
 }
 
 function initMap(lat = 32.0749831, lng = 34.9120554) {
@@ -109,14 +110,14 @@ function onClickMap() {
         // infoWindow.open(map);
     // Configure the click listener.
     console.log('gMap:', gMap)
-    gMap.addListener("click", (mapsMouseEvent) => {
+    // gMap.addListener("click", (mapsMouseEvent) => {
         // Close the current InfoWindow.
             // infoWindow.close();
         // Create a new InfoWindow.
             //infoWindow = new google.maps.InfoWindow({
-            position: 
-            console.log(mapsMouseEvent.latLng)
-        });
+            // position
+            // console.log(mapsMouseEvent.latLng);
+        // });
     //     infoWindow.setContent(
     //         JSON.stringify(mapsMouseEvent.latLng.toJSON(), null, 2)
     //     );
