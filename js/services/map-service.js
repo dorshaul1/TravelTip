@@ -3,9 +3,10 @@ import {
 } from './util-service.js'
 
 export const mapService = {
-    getLocs,
+    getLocsFromStorage,
     createLocation,
-    saveLocs,
+    saveLocsToStorage,
+    findLocById
 }
 
 const KEY = 'locations';
@@ -34,23 +35,24 @@ function createLocation(name = null, lat, lng, weather = null, updateAt = null) 
         createdAt: Date.now(),
         updateAt
     }
-<<<<<<< HEAD
-    const locs = getLocs();
+    const locs = getLocsFromStorage();
     locs.push(location);
-    saveLocs(locs);
+    saveLocsToStorage(locs);
 }
 
-function getLocs() {
-    const locs = utilService.loadFromStorage(KEY);
+function getLocsFromStorage() {
+    let locs = utilService.loadFromStorage(KEY);
     if (!locs) locs = [];
     return locs;
 }
 
-function saveLocs(locs) {
-    saveToStorage(KEY, locs);
-=======
-    console.log('location:', location)
-    gLocations.push(location)
-    // console.log(gLocations);
->>>>>>> 87738cc4999aa429d0f409bb3ec23b96d5b35462
+function saveLocsToStorage(locs) {
+    utilService.saveToStorage(KEY, locs);
+}
+
+
+function findLocById(id) {
+    const locs = getLocsFromStorage(KEY);
+    if (!locs) return;
+    return locs.find(loc => loc.id === id);
 }

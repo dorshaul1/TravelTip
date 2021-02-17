@@ -12,26 +12,16 @@ var gMap;
 window.onload = () => {
     initMap()
         .then(() => {
-            // addMarker({
-            //     lat: 32.0749831,
-            //     lng: 34.9120554
-            // });
             addEventsListeners()
         })
         .catch(() => console.log('INIT MAP ERROR'));
-
-    // getPosition()
-    //     .then(pos => {
-    //         console.log('User position is:', pos.coords);
-    //         // console.log('pos.coords:', pos.coords)
-    //     })
-    //     .catch(err => {
-    //         console.log('err!!!', err);
-    //     })
+        renderLocs();
 }
 
+window.onPanLoc = onPanLoc;
+
+
 function initMap(lat = 32.0749831, lng = 34.9120554) {
-    // console.log('InitMap');
     return _connectGoogleApi()
         .then(() => {
             console.log('google available');
@@ -52,8 +42,6 @@ function addMarker(loc) {
         position: loc,
         map: gMap,
         title: 'Hello World!',
-        // draggable: true,
-
         animation: google.maps.Animation.DROP,
     });
     return marker;
@@ -64,9 +52,7 @@ function panTo(lat, lng) {
     gMap.panTo(laLatLng);
 }
 
-// This function provides a Promise API to the callback-based-api of getCurrentPosition
 function getPosition() {
-    // console.log('Getting Pos');
     return new Promise((resolve, reject) => {
         navigator.geolocation.getCurrentPosition(resolve, reject)
     })
@@ -96,25 +82,19 @@ function onGetCurrPosition() {
         getPosition()
             .then(pos => {
                 panTo(pos.coords.latitude, pos.coords.longitude);
-
-                // console.log('pos.coords:', pos.coords)
             })
     })
 }
 
 function onClickMap() {
     gMap.addListener("click", (mapsMouseEvent) => {
-        // console.log('mapsMouseEvent:', mapsMouseEvent)
         var lat = mapsMouseEvent.latLng.lat()
-        // console.log('lat:', lat)
         var lng = mapsMouseEvent.latLng.lng()
-        // console.log('lng:', lng)
         panTo(lat, lng)
         createInfoWindow({
             lat,
             lng
         })
-        // mapService.createLocation(null, lat, lng, null, null)
     });
 }
 
@@ -140,14 +120,21 @@ function createInfoWindow(pos) {
             let elInput = document.querySelector('.locationInput')
             mapService.createLocation(elInput.value, pos.lat, pos.lng)
             infowindow.close(gMap, marker);
+            renderLocs();
         })
     }, 100)
 }
 
 
 function renderLocs() {
-    const locs = getLocs();
+    const locs = mapService.getLocsFromStorage();
     document.querySelector('.locs-table').innerHTML = locs.map(loc => {
-        return `<td class="loc" data-id="${loc.id}">${loc.name}</td><td>X</td>`;
-    });
+        // addMarker({})
+        return `<tr onclick="onPanLoc('${loc.id}')"><td class="loc" data-id="${loc.id}">${loc.name}</td><td>X</td></tr>`;
+    }).join('');
+}
+
+function onPanLoc(id) {
+    const loc = mapService.findLocById(id);
+    panTo(loc.lat, loc.lng);
 }
