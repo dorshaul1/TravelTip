@@ -3,6 +3,8 @@ import { mapService } from './services/map-service.js'
 var gMap;
 console.log('Main!');
 
+const API_KEY = 'AIzaSyBVQipjJ0ddfwLp8ooqI_wUJEjIogAff5g';
+
 mapService.getLocs()
     .then(locs => console.log('locs', locs))
 
