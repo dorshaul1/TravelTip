@@ -14,13 +14,11 @@ var gMap;
 
 window.onload = () => {
     initMap()
-        .then((map) => {
+        .then(() => {
             addEventsListeners()
-            panByParameters()
-            // console.log('blbl');
+            renderLocs();   
         })
-    // .catch(() => console.log('INIT MAP ERROR'));
-    renderLocs();
+        // .catch(() => console.log('INIT MAP ERROR'));
 }
 
 window.onPanLoc = onPanLoc;
@@ -196,14 +194,30 @@ function onSearchLoc(ev) {
     ev.preventDefault();
     const locName = document.querySelector('.search-loc').value;
     mapService.searchLocs(locName)
+<<<<<<< HEAD
+    .then (loc => {
+        let searched = loc;
+        console.log(searched);
+        
+        panTo(loc.location);
+        mapService.getLocWeather(searched.location)
+        .then (res => console.log(res));
+    });
+
+
+=======
         .then(loc => {
             panTo(loc.location)
             console.log(loc);
         });
+>>>>>>> 89493b0668d376cfc2746e0679e87c3072adef5d
 }
 
 function addSearchListener() {
     document.querySelector('.search-form').addEventListener('submit', onSearchLoc);
+<<<<<<< HEAD
+}
+=======
     // console.log("TCL: onSearchLoc -> locName", locName);
 }
 
@@ -215,3 +229,4 @@ function addSearchListener() {
 
 // }
 
+>>>>>>> 89493b0668d376cfc2746e0679e87c3072adef5d

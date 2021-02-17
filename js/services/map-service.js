@@ -9,7 +9,9 @@ export const mapService = {
     findLocById,
     deleteLoc,
     // getLocationUrl,
-    searchLocs,    
+    searchLocs,
+    gCurrLocation,
+    getLocWeather
 }
 
 export var gCurrLocation 
@@ -19,13 +21,7 @@ export var gCurrLocation
 const KEY = 'locations';
 const API_KEY = 'AIzaSyBVQipjJ0ddfwLp8ooqI_wUJEjIogAff5g';
 
-gCurrLocation = getLocsFromStorage(KEY)[0]
-// console.log('gCurrLocation:', gCurrLocation)
-// var locs = [{
-//     lat: 11.22,
-//     lng: 22.11
-// }]
-
+const W_KEY = 'b1b68f237aa5fc8d564c0170e10be530';
 
 function getSearchedLocs() {
     return new Promise((resolve, reject) => {
@@ -89,6 +85,26 @@ function searchLocs(searchedStr) {
         });
 }
 
+<<<<<<< HEAD
 // function getLocationName(loc){
 
 // }
+=======
+
+
+
+function getLocWeather(loc) {
+    // let loc = utilService.loadFromStorage(searchedStr);
+    // if (loc) return Promise.resolve(loc);
+    console.log(loc);
+
+    return axios.get(`api.openweathermap.org/data/2.5/weather?lat=${loc.lat}&lon=${loc.lng}&appid=${W_KEY}`)
+        .then(res => {
+
+            console.log(res);
+            // loc = res.data.results[0]
+            // utilService.saveToStorage(searchedStr, loc);
+            return res;
+        });
+}
+>>>>>>> 6fde70d83337a8de229b4a8ea6fd98a6c7287f28
