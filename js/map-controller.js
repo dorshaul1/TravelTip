@@ -51,7 +51,10 @@ function addMarker(loc) {
     var marker = new google.maps.Marker({
         position: loc,
         map: gMap,
-        title: 'Hello World!'
+        title: 'Hello World!',
+        draggable: true,
+
+        animation: google.maps.Animation.DROP,
     });
     return marker;
 }
@@ -126,6 +129,5 @@ function createInfoWindow(pos) {
 
     marker.addListener("click", () => {
         infowindow.close(gMap, marker);
-
     });
 }
