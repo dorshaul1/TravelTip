@@ -15,10 +15,11 @@ window.onload = () => {
             addEventsListeners()
         })
         .catch(() => console.log('INIT MAP ERROR'));
-        renderLocs();
+    renderLocs();
 }
 
 window.onPanLoc = onPanLoc;
+window.onSearchLoc = onSearchLoc;
 
 
 function initMap(lat = 32.0749831, lng = 34.9120554) {
@@ -75,6 +76,7 @@ function _connectGoogleApi() {
 function addEventsListeners() {
     onGetCurrPosition()
     onClickMap()
+    addSearchListener()
 }
 
 function onGetCurrPosition() {
@@ -137,4 +139,19 @@ function renderLocs() {
 function onPanLoc(id) {
     const loc = mapService.findLocById(id);
     panTo(loc.lat, loc.lng);
+}
+
+
+function onSearchLoc(ev) {
+    ev.preventDefault();
+    const locName = document.querySelector('.search-loc').value;
+    mapService.searchLocs(locName);
+    // .then (locs => console.log(locs));
+
+
+}
+
+function addSearchListener() {
+    document.querySelector('.search-form').addEventListener('submit', onSearchLoc);
+    console.log("TCL: onSearchLoc -> locName", locName);
 }

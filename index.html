@@ -14,8 +14,10 @@
         <nav class="flex common-width space-between align-items">
             <h1 class="logo">TravelTip</h1>
             <div class="header-btns flex align-items">
-                <input type="search" class="search-loc">
-                <button class="go-btn">Go</button>
+                <form class="search-form">
+                    <input type="search" class="search-loc">
+                    <button type="submit" class="go-btn">Go</button>
+                </form>
                 <button class="my-location-btn">My Location</button>
             </div>
         </nav>
@@ -50,6 +52,7 @@
         </div>
 
     </main>
+    <script src="js/lib/axios.js"></script>
     <script type="module" src="js/map-controller.js"></script>
 </body>
 
