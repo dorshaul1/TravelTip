@@ -2,6 +2,7 @@ import {
     mapService
 } from './services/map-service.js'
 
+import { utilService } from './services/util-service.js'
 var gMap;
 // console.log('Main!');
 
@@ -20,18 +21,19 @@ window.onload = () => {
         })
         .catch(() => console.log('INIT MAP ERROR'));
 
-    // getPosition()
-    //     .then(pos => {
-    //         console.log('User position is:', pos.coords);
-    //         // console.log('pos.coords:', pos.coords)
-    //     })
-    //     .catch(err => {
-    //         console.log('err!!!', err);
-    //     })
+    getPosition()
+        .then(pos => {
+            console.log('User position is:', pos.coords);
+            // console.log('pos.coords:', pos.coords)
+        })
+        .catch(err => {
+            console.log('err!!!', err);
+        });
+        console.log('map', gMap);
+    addEventsListeners();
 }
 
 function initMap(lat = 32.0749831, lng = 34.9120554) {
-    // console.log('InitMap');
     return _connectGoogleApi()
         .then(() => {
             console.log('google available');
@@ -66,7 +68,6 @@ function panTo(lat, lng) {
 
 // This function provides a Promise API to the callback-based-api of getCurrentPosition
 function getPosition() {
-    // console.log('Getting Pos');
     return new Promise((resolve, reject) => {
         navigator.geolocation.getCurrentPosition(resolve, reject)
     })
@@ -93,15 +94,12 @@ function addEventsListeners() {
 
 function onGetCurrPosition() {
     document.querySelector('.my-location-btn').addEventListener('click', (ev) => {
-        // console.log('Aha!', ev.target);
-        // panTo(35.6895, 139.6917);
         getPosition()
             .then(pos => {
                 panTo(pos.coords.latitude, pos.coords.longitude);
-
                 // console.log('pos.coords:', pos.coords)
             })
-    })
+    });
 }
 
 function onClickMap() {
