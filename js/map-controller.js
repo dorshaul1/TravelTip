@@ -3,6 +3,7 @@ import {
 } from './services/map-service.js'
 
 var gMap;
+
 // console.log('Main!');
 
 
@@ -15,10 +16,11 @@ window.onload = () => {
             addEventsListeners()
         })
         .catch(() => console.log('INIT MAP ERROR'));
-    renderLocs();
+        renderLocs();
 }
 
 window.onPanLoc = onPanLoc;
+window.onDeleteLoc = onDeleteLoc;
 window.onSearchLoc = onSearchLoc;
 
 
@@ -28,12 +30,12 @@ function initMap(lat = 32.0749831, lng = 34.9120554) {
             console.log('google available');
             gMap = new google.maps.Map(
                 document.querySelector('#map'), {
-                center: {
-                    lat,
-                    lng
-                },
-                zoom: 15
-            })
+                    center: {
+                        lat,
+                        lng
+                    },
+                    zoom: 15
+                })
             console.log('Map!', gMap);
         })
 }
@@ -77,6 +79,7 @@ function addEventsListeners() {
     onGetCurrPosition()
     onClickMap()
     addSearchListener()
+    copyLocation()
 }
 
 function onGetCurrPosition() {
@@ -132,15 +135,34 @@ function renderLocs() {
     const locs = mapService.getLocsFromStorage();
     document.querySelector('.locs-table').innerHTML = locs.map(loc => {
         // addMarker({})
-        return `<tr onclick="onPanLoc('${loc.id}')"><td class="loc" data-id="${loc.id}">${loc.name}</td><td>X</td></tr>`;
+        return `<tr><td class="loc" data-id="${loc.id}" onclick="onPanLoc('${loc.id}')">${loc.name}</td><td><button class="delete-loc-btn" onclick="onDeleteLoc('${loc.id}')">X</button></td></tr>`;
     }).join('');
 }
 
 function onPanLoc(id) {
     const loc = mapService.findLocById(id);
     panTo(loc.lat, loc.lng);
+    mapService.gCurrLocation = loc
 }
 
+function onDeleteLoc(id) {
+    mapService.deleteLoc(id);
+    renderLocs()
+}
+
+// function onClickCopyLo/cation(){
+// }
+
+function copyLocation() {
+    document.querySelector('.copy-location-btn').addEventListener('click', (ev) =>{
+        ev.preventDefault()
+        console.log('hi');
+    });
+    // getLocationUrl()
+    //     .then (url => console.log(url))
+
+    // http://127.0.0.1:5502/index.html?lat=${gCurrLocation.lat} &lng=${gCurrLocation.lng} `
+}
 
 function onSearchLoc(ev) {
     ev.preventDefault();

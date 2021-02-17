@@ -7,8 +7,13 @@ export const mapService = {
     createLocation,
     saveLocsToStorage,
     findLocById,
-    searchLocs
+    deleteLoc,
+    // getLocationUrl,
+    searchLocs,
+    gCurrLocation
 }
+
+var gCurrLocation
 
 const KEY = 'locations';
 const API_KEY = 'AIzaSyBVQipjJ0ddfwLp8ooqI_wUJEjIogAff5g';
@@ -35,7 +40,7 @@ function createLocation(name = null, lat, lng, weather = null, updateAt = null) 
         lng,
         weather,
         createdAt: Date.now(),
-        updateAt
+        updateAt,
     }
     const locs = getLocsFromStorage();
     locs.push(location);
@@ -52,13 +57,23 @@ function saveLocsToStorage(locs) {
     utilService.saveToStorage(KEY, locs);
 }
 
-
 function findLocById(id) {
     const locs = getLocsFromStorage(KEY);
     if (!locs) return;
     return locs.find(loc => loc.id === id);
 }
 
+function deleteLoc(id) {
+    const locs = getLocsFromStorage(KEY);
+    if (!locs) return;
+    locs.splice(locs.findIndex(loc => loc.id === id), 1)
+    saveLocsToStorage(locs)
+}
+
+// function getLocationUrl(){
+//     console.log('hi')
+//     return axios.get (`http://127.0.0.1:5502/index.html?lat=${gCurrLocation.lat} &lng=${gCurrLocation.lng} `)
+// }
 
 function searchLocs(searchedStr) {
     const searchedLoc = searchedStr.split(' ').join('+');
