@@ -11,7 +11,7 @@ export const mapService = {
 }
 
 const KEY = 'locations';
-const API_KEY = 'AIzaSyBz433ZGfeuXAVT--N8Rigt7t14Rgh8Axw';
+const API_KEY = 'AIzaSyBVQipjJ0ddfwLp8ooqI_wUJEjIogAff5g';
 
 // var locs = [{
 //     lat: 11.22,
@@ -63,13 +63,15 @@ function findLocById(id) {
 function searchLocs(searchedStr) {
     const searchedLoc = searchedStr.split(' ').join('+');
     console.log(searchedLoc);
-    const loc = utilService.loadFromStorage(searchedStr);
+    let loc = utilService.loadFromStorage(searchedStr);
     if (loc) return Promise.resolve(loc);
 
     return axios.get(`https://maps.googleapis.com/maps/api/geocode/json?address=${searchedLoc}&key=${API_KEY}`)
         .then(res => {
-            console.log('Service Got Res:', res);
-            utilService.saveToStorage(searchedStr, res.data);
-            return res.data;
+
+            console.log(res);
+            loc = res.data.results[0]
+            utilService.saveToStorage(searchedStr, loc);
+            return {name: loc.formatted_address, location: loc.geometry.location}
         });
 }

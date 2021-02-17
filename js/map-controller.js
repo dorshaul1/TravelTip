@@ -145,8 +145,8 @@ function onPanLoc(id) {
 function onSearchLoc(ev) {
     ev.preventDefault();
     const locName = document.querySelector('.search-loc').value;
-    mapService.searchLocs(locName);
-    // .then (locs => console.log(locs));
+    mapService.searchLocs(locName)
+    .then (loc => panTo(loc.location));
 
 
 }
