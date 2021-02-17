@@ -20,7 +20,6 @@ window.onload = () => {
         })
         .catch(() => console.log('INIT MAP ERROR'));
 
-<<<<<<< HEAD
     // getPosition()
     //     .then(pos => {
     //         console.log('User position is:', pos.coords);
@@ -29,18 +28,6 @@ window.onload = () => {
     //     .catch(err => {
     //         console.log('err!!!', err);
     //     })
-=======
-    getPosition()
-        .then(pos => {
-            console.log('User position is:', pos.coords);
-            // console.log('pos.coords:', pos.coords)
-        })
-        .catch(err => {
-            console.log('err!!!', err);
-        });
-        console.log('map', gMap);
-    addEventsListeners();
->>>>>>> 8142d9b274997d05560235c64c80b34d94a00f3e
 }
 
 function initMap(lat = 32.0749831, lng = 34.9120554) {
@@ -115,7 +102,6 @@ function onGetCurrPosition() {
 }
 
 function onClickMap() {
-<<<<<<< HEAD
     gMap.addListener("click", (mapsMouseEvent) => {
         console.log('mapsMouseEvent:', mapsMouseEvent)
         var lat = mapsMouseEvent.latLng.lat()
@@ -123,27 +109,6 @@ function onClickMap() {
         var lng = mapsMouseEvent.latLng.lng()
         console.log('lng:', lng)
         panTo(lat,lng)
+        createLocation(name = null, lat, lng, weather = null, updateAt = null)
     });
-=======
-        // let infoWindow = new google.maps.InfoWindow({
-        //     content: "Click the map to get Lat/Lng!",
-        //     position: myLatlng,
-        // });
-        // infoWindow.open(map);
-    // Configure the click listener.
-    console.log('gMap:', gMap)
-    // gMap.addListener("click", (mapsMouseEvent) => {
-        // Close the current InfoWindow.
-            // infoWindow.close();
-        // Create a new InfoWindow.
-            //infoWindow = new google.maps.InfoWindow({
-            // position
-            // console.log(mapsMouseEvent.latLng);
-        // });
-    //     infoWindow.setContent(
-    //         JSON.stringify(mapsMouseEvent.latLng.toJSON(), null, 2)
-    //     );
-    //     infoWindow.open(map);
-    // });
->>>>>>> 8142d9b274997d05560235c64c80b34d94a00f3e
 }
