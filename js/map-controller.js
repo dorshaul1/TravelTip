@@ -7,8 +7,8 @@ var gMap;
 // console.log('Main!');
 
 
-mapService.getLocs()
-    .then(locs => console.log('locs', locs))
+// mapService.getLocs()
+//     .then(locs => console.log('locs', locs))
 
 window.onload = () => {
     initMap()
@@ -129,3 +129,12 @@ function createInfoWindow(pos) {
         infowindow.close(gMap, marker);
     });
 }
+
+
+function renderLocs() {
+    const locs = getLocs(); 
+    document.querySelector('.locs-table').innerHTML = locs.map(loc => {
+        return `<td class="loc" data-id="${loc.id}">${loc.name}</td><td>X</td>`;
+    });
+}
+

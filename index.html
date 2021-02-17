@@ -30,11 +30,14 @@
 
         <div class="left-container flex flex-basis-50 column">
             <div class="weather-container"></div>
-            <div class="locations-table">
-                <table>
-                    <tbody>
-                        
-                    </tbody>
+            <div class="locs-container">
+                <table class="locs-table">
+                        <thead>
+                            <th>Name</th>
+                            <th colspan="3">Actions</th>
+                        </thead>
+                        <tbody class="locs-table">
+                        </tbody>
                 </table>
             </div>
         </div>
@@ -43,9 +46,6 @@
             <div id="map" style="width: 100%; height: 400px;"></div>
             <button class="btn">Click Me</button>
         </div>
-
-
-
 
     </main>
     <script type="module" src="js/map-controller.js"></script>

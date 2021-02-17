@@ -4,16 +4,19 @@ import {
 
 export const mapService = {
     getLocs,
-    createLocation
+    createLocation,
+    saveLocs,
 }
-var locs = [{
-    lat: 11.22,
-    lng: 22.11
-}]
 
-var gLocations = []
+const KEY = 'locations';
 
-function getLocs() {
+// var locs = [{
+//     lat: 11.22,
+//     lng: 22.11
+// }]
+
+
+function getSearchedLocs() {
     return new Promise((resolve, reject) => {
         setTimeout(() => {
             resolve(locs);
@@ -31,6 +34,17 @@ function createLocation(name = null, lat, lng, weather = null, updateAt = null) 
         createdAt: Date.now(),
         updateAt
     }
-    gLocations.push(location)
-    // console.log(gLocations);
+    const locs = getLocs();
+    locs.push(location);
+    saveLocs(locs);
+}
+
+function getLocs() {
+    const locs = utilService.loadFromStorage(KEY);
+    if (!locs) locs = [];
+    return locs;
+}
+
+function saveLocs(locs) {
+    saveToStorage(KEY, locs);
 }
