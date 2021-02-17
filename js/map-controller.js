@@ -147,7 +147,7 @@ function onPanLoc(id) {
     const loc = mapService.findLocById(id);
     panTo(loc.lat, loc.lng);
     mapService.gCurrLocation = loc
-    renderPlace(loc)
+    // renderPlace(loc)
 }
 
 function onDeleteLoc(id) {
@@ -207,11 +207,11 @@ function addSearchListener() {
     // console.log("TCL: onSearchLoc -> locName", locName);
 }
 
-function renderPlace(loc){
-    loc = mapService.searchLocs(loc)
-    console.log('loc:', loc)
-    document.querySelector('.location').innerText = mapService.searchLocs(loc.name)
-    console.log( mapService.searchLocs(loc.name))
+// function renderPlace(loc){
+//     loc = mapService.searchLocs(loc)
+//     console.log('loc:', loc)
+//     document.querySelector('.location').innerText = mapService.searchLocs(loc.name)
+//     console.log( mapService.searchLocs(loc.name))
 
-}
+// }
 

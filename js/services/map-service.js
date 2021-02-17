@@ -89,6 +89,6 @@ function searchLocs(searchedStr) {
         });
 }
 
-function getLocationName(loc){
+// function getLocationName(loc){
 
-}
+// }
