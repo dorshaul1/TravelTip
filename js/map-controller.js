@@ -2,7 +2,6 @@ import {
     mapService
 } from './services/map-service.js'
 
-import { utilService } from './services/util-service.js'
 var gMap;
 // console.log('Main!');
 
@@ -21,30 +20,29 @@ window.onload = () => {
         })
         .catch(() => console.log('INIT MAP ERROR'));
 
-    getPosition()
-        .then(pos => {
-            console.log('User position is:', pos.coords);
-            // console.log('pos.coords:', pos.coords)
-        })
-        .catch(err => {
-            console.log('err!!!', err);
-        });
-        console.log('map', gMap);
-    addEventsListeners();
+    // getPosition()
+    //     .then(pos => {
+    //         console.log('User position is:', pos.coords);
+    //         // console.log('pos.coords:', pos.coords)
+    //     })
+    //     .catch(err => {
+    //         console.log('err!!!', err);
+    //     })
 }
 
 function initMap(lat = 32.0749831, lng = 34.9120554) {
+    // console.log('InitMap');
     return _connectGoogleApi()
         .then(() => {
             console.log('google available');
             gMap = new google.maps.Map(
                 document.querySelector('#map'), {
-                    center: {
-                        lat,
-                        lng
-                    },
-                    zoom: 15
-                })
+                center: {
+                    lat,
+                    lng
+                },
+                zoom: 15
+            })
             console.log('Map!', gMap);
         })
 }
@@ -54,7 +52,7 @@ function addMarker(loc) {
         position: loc,
         map: gMap,
         title: 'Hello World!',
-        draggable: true,
+        // draggable: true,
 
         animation: google.maps.Animation.DROP,
     });
@@ -68,6 +66,7 @@ function panTo(lat, lng) {
 
 // This function provides a Promise API to the callback-based-api of getCurrentPosition
 function getPosition() {
+    // console.log('Getting Pos');
     return new Promise((resolve, reject) => {
         navigator.geolocation.getCurrentPosition(resolve, reject)
     })
@@ -97,9 +96,10 @@ function onGetCurrPosition() {
         getPosition()
             .then(pos => {
                 panTo(pos.coords.latitude, pos.coords.longitude);
+
                 // console.log('pos.coords:', pos.coords)
             })
-    });
+    })
 }
 
 function onClickMap() {
@@ -114,27 +114,40 @@ function onClickMap() {
             lat,
             lng
         })
-        mapService.createLocation(null, lat, lng, null, null)
+        // mapService.createLocation(null, lat, lng, null, null)
     });
 }
 
 function createInfoWindow(pos) {
     const infowindow = new google.maps.InfoWindow({
-        content: 'contentString',
+        content: '',
     });
     const marker = addMarker(pos)
+    infowindow.setContent(`
+    <div class="infoWindow-container flex column">
+    <input class="locationInput" type="text" placeholder="Location Name">
+    <button class="save-loc-btn">Save Location</butttn>
+    </div>
+    `)
     infowindow.open(gMap, marker);
 
     marker.addListener("click", () => {
         infowindow.close(gMap, marker);
     });
+
+    setTimeout(() => {
+        document.querySelector('.save-loc-btn').addEventListener('click', (ev) => {
+            let elInput = document.querySelector('.locationInput')
+            mapService.createLocation(elInput.value, pos.lat, pos.lng)
+            infowindow.close(gMap, marker);
+        })
+    }, 100)
 }
 
 
 function renderLocs() {
-    const locs = getLocs(); 
+    const locs = getLocs();
     document.querySelector('.locs-table').innerHTML = locs.map(loc => {
         return `<td class="loc" data-id="${loc.id}">${loc.name}</td><td>X</td>`;
     });
 }
-

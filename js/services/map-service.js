@@ -34,6 +34,7 @@ function createLocation(name = null, lat, lng, weather = null, updateAt = null) 
         createdAt: Date.now(),
         updateAt
     }
+<<<<<<< HEAD
     const locs = getLocs();
     locs.push(location);
     saveLocs(locs);
@@ -47,4 +48,9 @@ function getLocs() {
 
 function saveLocs(locs) {
     saveToStorage(KEY, locs);
+=======
+    console.log('location:', location)
+    gLocations.push(location)
+    // console.log(gLocations);
+>>>>>>> 87738cc4999aa429d0f409bb3ec23b96d5b35462
 }
