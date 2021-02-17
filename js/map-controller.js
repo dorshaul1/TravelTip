@@ -194,7 +194,6 @@ function onSearchLoc(ev) {
     ev.preventDefault();
     const locName = document.querySelector('.search-loc').value;
     mapService.searchLocs(locName)
-<<<<<<< HEAD
     .then (loc => {
         let searched = loc;
         console.log(searched);
@@ -205,21 +204,17 @@ function onSearchLoc(ev) {
     });
 
 
-=======
         .then(loc => {
             panTo(loc.location)
             console.log(loc);
         });
->>>>>>> 89493b0668d376cfc2746e0679e87c3072adef5d
 }
 
 function addSearchListener() {
     document.querySelector('.search-form').addEventListener('submit', onSearchLoc);
-<<<<<<< HEAD
 }
-=======
     // console.log("TCL: onSearchLoc -> locName", locName);
-}
+
 
 // function renderPlace(loc){
 //     loc = mapService.searchLocs(loc)
@@ -229,4 +224,3 @@ function addSearchListener() {
 
 // }
 
->>>>>>> 89493b0668d376cfc2746e0679e87c3072adef5d
