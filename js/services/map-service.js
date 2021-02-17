@@ -31,6 +31,7 @@ function createLocation(name = null, lat, lng, weather = null, updateAt = null) 
         createdAt: Date.now(),
         updateAt
     }
+    console.log('location:', location)
     gLocations.push(location)
     // console.log(gLocations);
 }
