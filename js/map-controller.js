@@ -130,26 +130,11 @@ function createInfoWindow(pos) {
     </div>
     `)
     infowindow.open(gMap, marker);
-
-    // marker.addListener("click", () => {
-    //     infowindow.close(gMap, marker);
-    // });
-
     setTimeout(() => {
         document.querySelector('.save-loc-btn').addEventListener('click', (ev) => {
             let elInput = document.querySelector('.locationInput')
             mapService.createLocation(elInput.value, pos.lat, pos.lng)
             infowindow.close(gMap, marker);
-            clearMarkers()
         })
     }, 100)
-    // onClickSaveLocation(infowindow)
 }
-
-function clearMarkers() {
-    setMapOnAll(null);
-}
-// function onClickSaveLocation(infowindow){
-
-// }
-// }
