@@ -105,10 +105,11 @@ function onClickMap() {
     gMap.addListener("click", (mapsMouseEvent) => {
         console.log('mapsMouseEvent:', mapsMouseEvent)
         var lat = mapsMouseEvent.latLng.lat()
-        console.log('lat:', lat)
+        // console.log('lat:', lat)
         var lng = mapsMouseEvent.latLng.lng()
-        console.log('lng:', lng)
+        // console.log('lng:', lng)
         panTo(lat,lng)
-        createLocation(name = null, lat, lng, weather = null, updateAt = null)
+        addMarker({lat,lng})
+        mapService.createLocation(null, lat, lng, null, null)
     });
 }

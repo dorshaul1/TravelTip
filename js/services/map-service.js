@@ -23,7 +23,7 @@ function getLocs() {
 
 function createLocation(name = null, lat, lng, weather = null, updateAt = null) {
     const location = {
-        id: makeId(),
+        id: utilService.makeId(4),
         name,
         lat,
         lng,
@@ -31,4 +31,6 @@ function createLocation(name = null, lat, lng, weather = null, updateAt = null) 
         createdAt: Date.now(),
         updateAt
     }
+    gLocations.push(location)
+    console.log(gLocations);
 }
