@@ -8,7 +8,7 @@ export const mapService = {
     saveLocsToStorage,
     findLocById,
     deleteLoc,
-    getLocationUrl,
+    // getLocationUrl,
     searchLocs,
     gCurrLocation
 }
@@ -70,9 +70,10 @@ function deleteLoc(id) {
     saveLocsToStorage(locs)
 }
 
-function getLocationUrl(){
-    // axios.get (`http://127.0.0.1:5502/index.html?lat=${} &lng=7.63`)
-}
+// function getLocationUrl(){
+//     console.log('hi')
+//     return axios.get (`http://127.0.0.1:5502/index.html?lat=${gCurrLocation.lat} &lng=${gCurrLocation.lng} `)
+// }
 
 function searchLocs(searchedStr) {
     const searchedLoc = searchedStr.split(' ').join('+');

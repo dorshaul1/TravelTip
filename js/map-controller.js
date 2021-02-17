@@ -16,7 +16,7 @@ window.onload = () => {
             addEventsListeners()
         })
         .catch(() => console.log('INIT MAP ERROR'));
-    renderLocs();
+        renderLocs();
 }
 
 window.onPanLoc = onPanLoc;
@@ -30,12 +30,12 @@ function initMap(lat = 32.0749831, lng = 34.9120554) {
             console.log('google available');
             gMap = new google.maps.Map(
                 document.querySelector('#map'), {
-                center: {
-                    lat,
-                    lng
-                },
-                zoom: 15
-            })
+                    center: {
+                        lat,
+                        lng
+                    },
+                    zoom: 15
+                })
             console.log('Map!', gMap);
         })
 }
@@ -79,6 +79,7 @@ function addEventsListeners() {
     onGetCurrPosition()
     onClickMap()
     addSearchListener()
+    copyLocation()
 }
 
 function onGetCurrPosition() {
@@ -144,13 +145,23 @@ function onPanLoc(id) {
     mapService.gCurrLocation = loc
 }
 
-function onDeleteLoc(id){
+function onDeleteLoc(id) {
     mapService.deleteLoc(id);
     renderLocs()
 }
 
-function copyLocation(){
-    getLocationUrl()
+// function onClickCopyLo/cation(){
+// }
+
+function copyLocation() {
+    document.querySelector('.copy-location-btn').addEventListener('click', (ev) =>{
+        ev.preventDefault()
+        console.log('hi');
+    });
+    // getLocationUrl()
+    //     .then (url => console.log(url))
+
+    // http://127.0.0.1:5502/index.html?lat=${gCurrLocation.lat} &lng=${gCurrLocation.lng} `
 }
 
 function onSearchLoc(ev) {
