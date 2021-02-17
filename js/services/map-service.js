@@ -6,8 +6,12 @@ export const mapService = {
     getLocsFromStorage,
     createLocation,
     saveLocsToStorage,
-    findLocById
+    findLocById,
+    deleteLoc,
+    gCurrLocation
 }
+
+var gCurrLocation
 
 const KEY = 'locations';
 
@@ -33,7 +37,7 @@ function createLocation(name = null, lat, lng, weather = null, updateAt = null) 
         lng,
         weather,
         createdAt: Date.now(),
-        updateAt
+        updateAt,
     }
     const locs = getLocsFromStorage();
     locs.push(location);
@@ -50,9 +54,15 @@ function saveLocsToStorage(locs) {
     utilService.saveToStorage(KEY, locs);
 }
 
-
 function findLocById(id) {
     const locs = getLocsFromStorage(KEY);
     if (!locs) return;
     return locs.find(loc => loc.id === id);
+}
+
+function deleteLoc(id) {
+    const locs = getLocsFromStorage(KEY);
+    if (!locs) return;
+    locs.splice(locs.findIndex(loc => loc.id === id), 1)
+    saveLocsToStorage(locs)
 }

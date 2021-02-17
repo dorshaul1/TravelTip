@@ -3,6 +3,7 @@ import {
 } from './services/map-service.js'
 
 var gMap;
+
 // console.log('Main!');
 
 
@@ -19,6 +20,7 @@ window.onload = () => {
 }
 
 window.onPanLoc = onPanLoc;
+window.onDeleteLoc = onDeleteLoc;
 
 
 function initMap(lat = 32.0749831, lng = 34.9120554) {
@@ -130,11 +132,21 @@ function renderLocs() {
     const locs = mapService.getLocsFromStorage();
     document.querySelector('.locs-table').innerHTML = locs.map(loc => {
         // addMarker({})
-        return `<tr onclick="onPanLoc('${loc.id}')"><td class="loc" data-id="${loc.id}">${loc.name}</td><td>X</td></tr>`;
+        return `<tr><td class="loc" data-id="${loc.id}" onclick="onPanLoc('${loc.id}')">${loc.name}</td><td><button class="delete-loc-btn" onclick="onDeleteLoc('${loc.id}')">X</button></td></tr>`;
     }).join('');
 }
 
 function onPanLoc(id) {
     const loc = mapService.findLocById(id);
     panTo(loc.lat, loc.lng);
+    mapService.gCurrLocation = loc
+}
+
+function onDeleteLoc(id){
+    mapService.deleteLoc(id);
+    renderLocs()
+}
+
+function copyLocation(){
+    getLocationUrl()
 }

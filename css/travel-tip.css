@@ -93,6 +93,14 @@ table td {
     text-align: center;
 }
 
+.delete-loc-btn{
+    background-color: rgb(207, 47, 47);
+    color: white;
+    border: none;
+    width: 10px;
+    height: 10px;
+}
+
 /* helpers */
 .flex {
     display: flex;
