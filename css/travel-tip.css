@@ -10,6 +10,7 @@
 body {
     margin: 0;
     font-family: 'Roboto', sans-serif;
+    background-color: rgb(63, 63, 63);
 }
 
 
@@ -48,7 +49,7 @@ nav {
 
 .location-container {
     height: 80px;
-    background-color: rgb(179, 170, 170);
+    background-color: rgb(190, 190, 190);
     margin-bottom: 20px;
     margin: 0 auto;
     margin-bottom: 20px;
