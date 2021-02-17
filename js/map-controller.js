@@ -109,7 +109,18 @@ function onClickMap() {
         var lng = mapsMouseEvent.latLng.lng()
         // console.log('lng:', lng)
         panTo(lat,lng)
-        addMarker({lat,lng})
+        createInfoWindow({lat,lng})
         mapService.createLocation(null, lat, lng, null, null)
+    });
+}
+
+function createInfoWindow(pos) {
+    const infowindow = new google.maps.InfoWindow({
+        content: 'contentString',
+    });
+    const marker = addMarker(pos)
+
+    marker.addListener("click", () => {
+        infowindow.open(gMap, marker);
     });
 }
