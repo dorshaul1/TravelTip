@@ -88,3 +88,7 @@ function searchLocs(searchedStr) {
             return {name: loc.formatted_address, location: loc.geometry.location}
         });
 }
+
+function getLocationName(loc){
+
+}
