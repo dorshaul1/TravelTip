@@ -2,6 +2,8 @@ import {
     mapService
 } from './services/map-service.js'
 
+import {gCurrLocation} from './services/map-service.js'
+
 var gMap;
 
 // console.log('Main!');
@@ -12,16 +14,18 @@ var gMap;
 
 window.onload = () => {
     initMap()
-        .then(() => {
+        .then((map) => {
             addEventsListeners()
+            panByParameters()
+            // console.log('blbl');
         })
-        .catch(() => console.log('INIT MAP ERROR'));
-        renderLocs();
+    // .catch(() => console.log('INIT MAP ERROR'));
+    renderLocs();
 }
 
 window.onPanLoc = onPanLoc;
 window.onDeleteLoc = onDeleteLoc;
-window.onSearchLoc = onSearchLoc;
+// window.onSearchLoc = onSearchLoc;
 
 
 function initMap(lat = 32.0749831, lng = 34.9120554) {
@@ -78,8 +82,8 @@ function _connectGoogleApi() {
 function addEventsListeners() {
     onGetCurrPosition()
     onClickMap()
-    addSearchListener()
     copyLocation()
+    addSearchListener()
 }
 
 function onGetCurrPosition() {
@@ -150,30 +154,50 @@ function onDeleteLoc(id) {
     renderLocs()
 }
 
-// function onClickCopyLo/cation(){
-// }
-
 function copyLocation() {
-    document.querySelector('.copy-location-btn').addEventListener('click', (ev) =>{
+    document.querySelector('.copy-location-btn').addEventListener('click', (ev) => {
         ev.preventDefault()
         console.log('hi');
     });
     // getLocationUrl()
     //     .then (url => console.log(url))
+    /* Get the text field */
+    console.log('copyText:', copyText)
+    console.log('gCurrLocation:', gCurrLocation)
 
-    // http://127.0.0.1:5502/index.html?lat=${gCurrLocation.lat} &lng=${gCurrLocation.lng} `
+    var copyText = `http://dorshaul1/index.html?lat=${gCurrLocation.lat}&lng=${gCurrLocation.lng}`
+    console.log('copyText:', copyText)
+
+    // /* Select the text field */
+    // copyText.select();
+    // copyText.setSelectionRange(0, 99999); /* For mobile devices */
+
+    /* Copy the text inside the text field */
+    // copyText.execCommand("copy");
+    copyText = navigator.clipboard
+
+    /* Alert the copied text */
+    alert("Copied the text: " + copyText.value);
+
+}
+
+function panByParameters() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const lat = urlParams.get('lat')
+    const lng = urlParams.get('lng')
+
+    panTo(lat, lng)
 }
 
 function onSearchLoc(ev) {
     ev.preventDefault();
     const locName = document.querySelector('.search-loc').value;
     mapService.searchLocs(locName)
-    .then (loc => panTo(loc.location));
-
-
+        .then(loc => panTo(loc.location));
 }
 
 function addSearchListener() {
     document.querySelector('.search-form').addEventListener('submit', onSearchLoc);
-    console.log("TCL: onSearchLoc -> locName", locName);
+    // console.log("TCL: onSearchLoc -> locName", locName);
 }
+

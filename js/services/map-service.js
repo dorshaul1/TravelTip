@@ -9,15 +9,18 @@ export const mapService = {
     findLocById,
     deleteLoc,
     // getLocationUrl,
-    searchLocs,
-    gCurrLocation
+    searchLocs,    
 }
 
-var gCurrLocation
+export var gCurrLocation 
+
+// export var gCurrLocation
 
 const KEY = 'locations';
 const API_KEY = 'AIzaSyBVQipjJ0ddfwLp8ooqI_wUJEjIogAff5g';
 
+gCurrLocation = getLocsFromStorage(KEY)[0]
+// console.log('gCurrLocation:', gCurrLocation)
 // var locs = [{
 //     lat: 11.22,
 //     lng: 22.11
@@ -69,11 +72,6 @@ function deleteLoc(id) {
     locs.splice(locs.findIndex(loc => loc.id === id), 1)
     saveLocsToStorage(locs)
 }
-
-// function getLocationUrl(){
-//     console.log('hi')
-//     return axios.get (`http://127.0.0.1:5502/index.html?lat=${gCurrLocation.lat} &lng=${gCurrLocation.lng} `)
-// }
 
 function searchLocs(searchedStr) {
     const searchedLoc = searchedStr.split(' ').join('+');
