@@ -6,24 +6,19 @@ import {gCurrLocation} from './services/map-service.js'
 
 var gMap;
 
-// console.log('Main!');
-
-
-// mapService.getLocs()
-//     .then(locs => console.log('locs', locs))
-
 window.onload = () => {
     initMap()
         .then(() => {
             addEventsListeners()
             renderLocs();   
+            
+            
         })
         // .catch(() => console.log('INIT MAP ERROR'));
 }
 
 window.onPanLoc = onPanLoc;
 window.onDeleteLoc = onDeleteLoc;
-// window.onSearchLoc = onSearchLoc;
 
 
 function initMap(lat = 32.0749831, lng = 34.9120554) {
@@ -136,7 +131,8 @@ function createInfoWindow(pos) {
 function renderLocs() {
     const locs = mapService.getLocsFromStorage();
     document.querySelector('.locs-table').innerHTML = locs.map(loc => {
-        // addMarker({})
+        let location = {lat: loc.lat, lng: loc.lng};
+        addMarker(location);
         return `<tr><td class="loc" data-id="${loc.id}" onclick="onPanLoc('${loc.id}')">${loc.name}</td><td><button class="delete-loc-btn" onclick="onDeleteLoc('${loc.id}')">X</button></td></tr>`;
     }).join('');
 }
@@ -144,8 +140,8 @@ function renderLocs() {
 function onPanLoc(id) {
     const loc = mapService.findLocById(id);
     panTo(loc.lat, loc.lng);
-    mapService.gCurrLocation = loc
-    // renderPlace(loc)
+    mapService.gCurrLocation = loc;
+    // renderPlace(loc);
 }
 
 function onDeleteLoc(id) {
@@ -180,47 +176,50 @@ function copyLocation() {
     // alert("Copied the text: " + copyText.value);
 }
 
-function panByParameters() {
-    const urlParams = new URLSearchParams(window.location.search);
-    const lat = +urlParams.get('lat')
-    console.log('lat:', lat)
-    const lng = +urlParams.get('lng')
-    console.log('lng:', lng)
+// function panByParameters() {
+//     const urlParams = new URLSearchParams(window.location.search);
+//     const lat = +urlParams.get('lat')
+//     console.log('lat:', lat)
+//     const lng = +urlParams.get('lng')
+//     console.log('lng:', lng)
 
-    panTo(lat, lng)
-}
+//     panTo(lat, lng)
+// }
 
 function onSearchLoc(ev) {
     ev.preventDefault();
     const locName = document.querySelector('.search-loc').value;
     mapService.searchLocs(locName)
     .then (loc => {
-        let searched = loc;
-        console.log(searched);
-        
-        panTo(loc.location);
-        mapService.getLocWeather(searched.location)
-        .then (res => console.log(res));
+        console.log(loc);
+        panTo(loc.location.lat, loc.location.lng);
+        // mapService.getLocWeather(searched.location)
+        // .then (res => console.log(res));
     });
 
 
+<<<<<<< HEAD
         .then(loc => {
             panTo(loc.location)
             console.log(loc);
         });
+=======
+>>>>>>> 004c5e465cdc0fbc2021ecb1fd75e397322ef515
 }
 
 function addSearchListener() {
     document.querySelector('.search-form').addEventListener('submit', onSearchLoc);
 }
+<<<<<<< HEAD
     // console.log("TCL: onSearchLoc -> locName", locName);
 
+=======
+>>>>>>> 004c5e465cdc0fbc2021ecb1fd75e397322ef515
 
 // function renderPlace(loc){
-//     loc = mapService.searchLocs(loc)
+//     // loc = mapService.searchLocs(loc)
 //     console.log('loc:', loc)
 //     document.querySelector('.location').innerText = mapService.searchLocs(loc.name)
-//     console.log( mapService.searchLocs(loc.name))
-
+//     console.log( mapService.searchLocs(loc.name));
 // }
 

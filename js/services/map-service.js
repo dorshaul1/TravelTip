@@ -8,10 +8,10 @@ export const mapService = {
     saveLocsToStorage,
     findLocById,
     deleteLoc,
-    // getLocationUrl,
     searchLocs,
     gCurrLocation,
     getLocWeather
+    // getLocationUrl,
 }
 
 export var gCurrLocation 
@@ -19,8 +19,8 @@ export var gCurrLocation
 // export var gCurrLocation
 
 const KEY = 'locations';
-const API_KEY = 'AIzaSyBVQipjJ0ddfwLp8ooqI_wUJEjIogAff5g';
 
+const API_KEY = 'AIzaSyBVQipjJ0ddfwLp8ooqI_wUJEjIogAff5g';
 const W_KEY = 'b1b68f237aa5fc8d564c0170e10be530';
 
 function getSearchedLocs() {
@@ -77,19 +77,14 @@ function searchLocs(searchedStr) {
 
     return axios.get(`https://maps.googleapis.com/maps/api/geocode/json?address=${searchedLoc}&key=${API_KEY}`)
         .then(res => {
-
             console.log(res);
             loc = res.data.results[0]
-            utilService.saveToStorage(searchedStr, loc);
-            return {name: loc.formatted_address, location: loc.geometry.location}
+            let location = {name: loc.formatted_address, location: loc.geometry.location};
+            utilService.saveToStorage(searchedStr, location);
+            return location;
         });
 }
 
-<<<<<<< HEAD
-// function getLocationName(loc){
-
-// }
-=======
 
 
 
@@ -107,4 +102,3 @@ function getLocWeather(loc) {
             return res;
         });
 }
->>>>>>> 6fde70d83337a8de229b4a8ea6fd98a6c7287f28
